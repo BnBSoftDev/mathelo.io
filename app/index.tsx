@@ -1,14 +1,15 @@
-import React from 'react';
-import {Button, StyleSheet, Text, View} from 'react-native';
+import { Text, View } from "react-native";
 
-const Hello = () => {
+export default function Index() {
   return (
-    <View>
-      <Text>
-        Hello, World ya ahmed mmtbga is delicious for real
-      </Text>
+    <View
+      style={{
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    >
+      <Text>salem salem maakom abd salem ich fick madonna</Text>
     </View>
-  )
+  );
 }
-
-export default Hello;
