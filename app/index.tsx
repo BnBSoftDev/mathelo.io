@@ -1,15 +1,24 @@
-import { Text, View } from "react-native";
+import PlayBtn from "@/components/PlayBtn";
+import UserName from "@/components/UserName";
+import LogOrSign from "@/components/LogOrSign";
+import { View } from "react-native";
+import Logo from "@/components/Logo";
+import Elo from "@/components/Elo";
 
 export default function Index() {
   return (
-    <View
+    <View className="bg-w"
       style={{
         flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
+        justifyContent: "space-around",
+        alignItems:'center',
       }}
     >
-      <Text>salem salem maakom abd salem ich fick madonna</Text>
+      <Logo/>
+      <Elo/>
+      <PlayBtn/>
+      <UserName/>
+      <LogOrSign/>
     </View>
   );
 }
