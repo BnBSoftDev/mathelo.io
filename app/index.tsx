@@ -18,7 +18,6 @@ export default function Index() {
       <Elo/>
       <PlayBtn/>
       <UserName/>
-      <LogOrSign/>
     </View>
   );
 }

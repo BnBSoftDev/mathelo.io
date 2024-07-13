@@ -1,4 +1,5 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import  { createUser } from './firebaseUtils/manageUser';
 
 const storeData = async (key:string,value:string) => {
     try {
@@ -24,8 +25,9 @@ const storeData = async (key:string,value:string) => {
   export const getOrCreateId = async() =>{
     let id = await getData('id');
     if (id == undefined || id == null) {
-      id = Math.random().toString(36).substring(5);
+      id = Math.random().toString(36).substring(4);
+      await createUser(id);
       await storeData('id', id);
-    }
+    } 
     return id;
   }
