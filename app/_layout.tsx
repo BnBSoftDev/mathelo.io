@@ -9,6 +9,12 @@ export default function RootLayout() {
           headerShown: false
         }
       } />
+      <Stack.Screen name="loadingGame" options={
+        {
+          title: "loading",
+          headerShown: false
+        }
+      } />
       
     </Stack>
   );

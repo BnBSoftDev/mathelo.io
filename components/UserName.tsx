@@ -6,11 +6,12 @@ import { updateUserName } from '@/utils/firebaseUtils/manageUser';
 
 const UserName = () => {
   
-  const [text, onChangeText] = React.useState('RandomUserName??');
+  const [text, onChangeText] = React.useState('RandomUserName');
 
   return (
     <View className='w-full px-14'>
         <TextInput
+        autoCorrect={false}
           onChangeText={onChangeText}
           value={text}
          className='text-lg -mb-5 font-mono font-bold'
