@@ -74,19 +74,22 @@ async function handle(snapshot:DataSnapshot,gamesRef:DatabaseReference, playerId
 }
 
 
-async function initGame(gameData:any,gameRef_: DatabaseReference,usersRef:DatabaseReference, qcmRef: DatabaseReference) {console.log('zebi');
-    const player1 = gameData.player1;//
+async function initGame(gameData:any, gameRef_:DatabaseReference, usersRef:DatabaseReference, qcmRef:DatabaseReference) {
+    console.log('zebi');
+    const player1 = gameData.player1;
     const player2 = gameData.player2;
 
-    const p1_elo = (await get(child(usersRef,player1))).val().elo;
-    const p2_elo = (await get(child(usersRef,player2))).val().elo;
-    const quests = await getQuests(p1_elo,p2_elo,qcmRef);
+    // Use Promise.all to run promises concurrently
+    const [p1_elo, p2_elo] = await Promise.all([
+        get(child(usersRef, player1)).then(snapshot => snapshot.val().elo),
+        get(child(usersRef, player2)).then(snapshot => snapshot.val().elo),
+
+    ]);
+    const quests = await getQuests(p1_elo, p2_elo, qcmRef);
+
     gameData.questions = quests;
     gameData.ready = true;
-    gameData.startTime = Date.now();
-    await set(gameRef_,gameData);  
-    //
-
+    await set(gameRef_, gameData);
 }
 
 
