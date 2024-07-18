@@ -75,7 +75,6 @@ async function handle(snapshot:DataSnapshot,gamesRef:DatabaseReference, playerId
 
 
 async function initGame(gameData:any, gameRef_:DatabaseReference, usersRef:DatabaseReference, qcmRef:DatabaseReference) {
-    console.log('zebi');
     const player1 = gameData.player1;
     const player2 = gameData.player2;
 
