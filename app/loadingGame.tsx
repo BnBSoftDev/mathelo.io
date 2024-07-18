@@ -4,7 +4,13 @@ import LoadingBar from "@/components/LoadingBar";
 export default function LoadingGame() {
     
     return (
-        <View className="p-6">
+        <View style = {{
+            flex: 1,
+            justifyContent: 'center',
+            alignItems: 'center',
+            backgroundColor: '#fff'
+        }}
+        >
             <TextFact/>
             <LoadingBar/>
         </View>

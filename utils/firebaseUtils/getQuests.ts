@@ -8,6 +8,6 @@ export async function getQuests(player1_elo:number, player2_elo:number,qcmRef: D
     //get 3 random questions
     const randomKeys = Object.keys(quests).sort(() => Math.random() - 0.5).slice(0, 3);
     const randomQuests = randomKeys.map((key:string) => quests[key]);
-    //fix data yer7am bouk
+    //fix data yer7am bouk (fl pycharm, jarrab encodiha locally w baad decodiha fl client phone)
     return randomQuests;
 }

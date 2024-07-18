@@ -4,13 +4,13 @@ import LogOrSign from "@/components/LogOrSign";
 import { View } from "react-native";
 import Logo from "@/components/Logo";
 import Elo from "@/components/Elo";
-import { Link } from 'expo-router';
 
 
 export default function Home() {
   return (
-    <View className="bg-w"
+    <View 
       style={{
+        backgroundColor: "#fff",
         flex: 1,
         justifyContent: "space-around",
         alignItems:'center',
