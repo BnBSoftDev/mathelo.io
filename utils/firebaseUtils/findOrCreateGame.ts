@@ -22,12 +22,10 @@ export async function findOrCreateGame() {
 
     return new Promise((resolve, reject) => {
         onValue(gameRef_, async (snapshot) => {
-            console.log('i:', i);
             i++;
             const snapval = snapshot.val();
             if (snapval.ready) {
                 // Resolve the promise when the game is ready
-                console.log('ena lgame ref mel findorcreate:', gameRef_);
                 resolve(gameKey);
             } else if (snapval.player2 === playerId) {
                 await initGame(snapval, gameRef_, usersRef, qcmRef);
@@ -43,10 +41,8 @@ async function handle(snapshot: DataSnapshot, gamesRef: DatabaseReference, playe
     if (snapshot.exists()) {
         const data = snapshot.val();
         gameKey = await joinGame(data, gamesRef, playerId) as string;
-        console.log('ena lgame key li jey ml join:', gameKey);
         if (gameKey == null) {
             gameKey = await createGame(gamesRef, playerId);
-            console.log('ena lgame key li jey ml create:', gameKey);
         }
     } else {
         gameKey = await createGame(gamesRef, playerId);
