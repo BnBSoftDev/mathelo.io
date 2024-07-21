@@ -1,5 +1,4 @@
 import { DatabaseReference,  child, set } from "firebase/database";
-import { getOrCreateId } from "../manageId";
 
 //todo: kenou deja fi game wl game heki mafiha 7ad, maghir ma tsnaa game okhra
 export async function joinGame(data:any,gamesRef:DatabaseReference,playerKey:string) {
@@ -14,8 +13,6 @@ export async function joinGame(data:any,gamesRef:DatabaseReference,playerKey:str
                         game.status = 'full';
                     }
 
-                    console.log('game',game);
-                    console.log('ref',child(gamesRef,key));
                     set(child(gamesRef,key),game);
                     return key;
             }

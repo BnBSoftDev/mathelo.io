@@ -25,7 +25,7 @@ const storeData = async (key:string,value:string) => {
 
 
   export const getOrCreateId = async() =>{
-    //storeData('id',''); //this makes sure enti l player n 1 w zeda tesnaa user jdid
+    storeData('id',''); //this makes sure enti l player n 1 w zeda tesnaa user jdid
     let id = await getData('id');
     if (id == undefined || id == null) {
       id = Math.random().toString(36).substring(4);
