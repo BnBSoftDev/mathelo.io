@@ -1,41 +1,37 @@
-import { View } from "react-native";
-import { getFact } from '@/utils/fetchRandomFact';
-import { useState, useEffect } from 'react';
+import { View,Text } from "react-native";
+import {getFact} from '@/utils/fetchRandomFact';
+import {useState} from 'react';
 import TypeWriterEffect from "react-native-typewriter-effect";
 import { delay } from "@/utils/delay";
 
+
 export default function TextFact() {
-  const [fact1, setFact1] = useState('');
-  const delayTime = 1000;
-
-  useEffect(() => {
-    getFact().then((fact) => {
-      setFact1(fact);
-    });
-  }, []);
-
-  return (
-    <View style={{ paddingVertical: 15, width: '100%', height: '20%' }}>
-      <TypeWriterEffect
-        content={fact1}
-        minDelay={1}
-        style={{
-          fontSize: 20,
-          textAlign: 'center',
-          color: '#000',
-          fontWeight: 'bold',
-          fontFamily: 'Pix',
-          margin: 20,
-          marginTop: -50,
-        }}
-        onTypingEnd={() => {
-          delay(delayTime).then(() => {
-            getFact().then((fact) => {
-              setFact1(fact);
-            });
-          });
-        }}
-      />
-    </View>
-  );
+    const [fact1,setFact1] = useState('');
+    const delaytime =1000;
+    return (
+        <View className="py-3 w-full h-1/5">
+            <TypeWriterEffect content={fact1}
+             minDelay={1}
+             style={{
+                fontSize: 14,
+                textAlign: 'center',
+                color: '#000000',
+                fontFamily: 'Pix',
+                margin: 20,
+                marginTop: -50
+             }}
+             onTypingEnd={ () => {
+               
+                delay(delaytime).then(() => {
+                    getFact().then((fact) => {
+                        setFact1(fact);
+                    });
+                });
+          
+             }
+               
+                
+            }/>
+        </View>
+    );
 }

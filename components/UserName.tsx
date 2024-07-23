@@ -11,10 +11,17 @@ const UserName = () => {
   return (
     <View className='w-full px-14'>
         <TextInput
+        style = {{
+          fontSize: 12,
+          fontFamily: 'Pix',
+          color: '#000',
+        
+         
+        }}
         autoCorrect={false}
           onChangeText={onChangeText}
           value={text}
-         className='text-lg -mb-5 font-mono font-bold'
+         className='text-lg -mb-5'
           placeholder="ex: AlgebraSlayer"
           onSubmitEditing={() => {
             updateUserName(text);
@@ -22,7 +29,10 @@ const UserName = () => {
             
         </TextInput>
         <View className='w-64 h-px my-8 bg-gray-400 border-0'/>
-        <Text className='text-gray-600 -mt-7'>Change username</Text>
+        <Text className='text-gray-600 -mt-7' style ={{
+          fontFamily: 'Pix',
+          fontSize: 10,
+        }}>Change username</Text>
       
     </View>
   );

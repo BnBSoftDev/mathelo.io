@@ -1,4 +1,4 @@
-import { DatabaseReference, child, get, push, ref, set } from "firebase/database";
+import { DatabaseReference, child, push, set } from "firebase/database";
  export async function createGame(gamesRef:DatabaseReference, playerKey:string) {
   const newGameKey = push(gamesRef).key;
   const game = {
@@ -7,6 +7,8 @@ import { DatabaseReference, child, get, push, ref, set } from "firebase/database
     status: 'notfull',
     winner : '',
     ready : false,
+    player1Answers : [],
+    player2Answers : [],
   };
 
   set(child(gamesRef, newGameKey as string), game);

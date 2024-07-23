@@ -4,7 +4,7 @@ import { useEffect } from "react";
 
 export default function RootLayout() {
   const [loaded, error] = useFonts({
-    'Pix': require('../assets/fonts/Pixelify-Sans.ttf'),
+    'Pix': require('../assets/fonts/kongtext.ttf'),
   });
 
   useEffect(() => {

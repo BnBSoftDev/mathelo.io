@@ -6,6 +6,8 @@ import { createGame } from "./createGame";
 import { getOrCreateId } from "../manageId";
 import { getQuests } from "./getQuests";
 
+
+//TODO(): kelmet lime bedelha b lim
 export async function findOrCreateGame() {
     const playerId = await getOrCreateId();
 

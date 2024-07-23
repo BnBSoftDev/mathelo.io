@@ -15,8 +15,8 @@ export default function PlayBtn() {
             w-3/4
             h-12"
             >
-            <Text
-            className="text-white text-center font-bold text-xl" 
+            <Text style={{fontFamily: 'Pix'}}
+            className="text-white text-center text-xl" 
             >Play</Text>
             </Pressable>
         </Link>

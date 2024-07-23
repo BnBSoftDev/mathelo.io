@@ -5,7 +5,7 @@ import { View } from "react-native";
 import Logo from "@/components/Logo";
 import Elo from "@/components/Elo";
 
-
+//TODO: add a song that plays on the main screen
 export default function Home() {
   return (
     <View 
