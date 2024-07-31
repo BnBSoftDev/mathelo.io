@@ -1,5 +1,6 @@
-import React from 'react';
-import { Text } from 'react-native';
+import { addNewLines } from '@/utils/modifyEnonce';
+import { View } from 'react-native';
+import { SvgUri } from 'react-native-svg';
 
 interface Props {
 gameId: string;
@@ -9,23 +10,39 @@ question: QCM;
 
 interface QCM {
     enonce: string;
-    explication: string;
+    explanation: string;
     options: option[];
 }
 
 interface option {
-    opt: string;
-    b: boolean;
+    text: string;
+    correct: boolean;
 }
 
+
+
 const QCM: React.FC<Props> = ({ gameId,question }) => {
-    return (
-        <Text style={{
-            fontSize: 20,
-            textAlign: 'center',
-            padding: 10
-        }}>{question.enonce}</Text>
-    );
+    const modifiedEnonce = addNewLines(question.enonce, 40);
+    console.log('enonce',question.enonce)
+   return (
+    <View  
+    style={{
+       
+        height: '100%',
+        width: '100%',
+        alignItems: 'center',
+       
+    }}>
+        <SvgUri
+        width={'100%'}
+        
+        uri={encodeURI(`http://latex.codecogs.com/svg.zebi?\\textbf{${modifiedEnonce}}`)}
+    />
+
+    
+    </View>
+    
+   )
 }
 
 export default QCM;
