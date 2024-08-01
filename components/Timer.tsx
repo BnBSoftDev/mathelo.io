@@ -1,7 +1,7 @@
 import { view } from 'ramda';
 import { View, Text, Image} from 'react-native';
 export default function Timer(
-    { elapsedTime }: { elapsedTime: number }
+    {timeLeft} : {timeLeft: number}
 ) {
     return (
         <View className="flex flex-column h-fit justify-around -mt-3">
@@ -16,7 +16,8 @@ export default function Timer(
                 fontSize: 15,
                 fontFamily: 'Pix',
                 color: '#3D72D1',
-            }}>00:00</Text>
+            }}>{`${Math.floor(timeLeft / 60).toString().padStart(2, '0')}:${Math.floor(timeLeft % 60).toString().padStart(2, '0')}`}
+            </Text>
         </View>
     )
 }

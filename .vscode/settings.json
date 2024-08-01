@@ -1,5 +1,5 @@
 {
     "typescript.tsdk": "node_modules\\typescript\\lib",
     "github.copilot.editor.enableAutoCompletions": true,
-    "github.copilot.inlineSuggest.enable": true
+    "github.copilot.inlineSuggest.enable": false
 }

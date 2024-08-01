@@ -65,5 +65,6 @@ async function initGame(gameData: any, gameRef_: DatabaseReference, usersRef: Da
 
     gameData.questions = quests;
     gameData.ready = true;
+    gameData.startTime = Date.now();
     await set(gameRef_, gameData);
 }
