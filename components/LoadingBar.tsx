@@ -6,11 +6,21 @@ import * as Progress from 'react-native-progress'; // try to fix it, i.e., impor
 
 export default function LoadingBar() {
     const [gameKey, setGameKey] = useState('');
+    const [playerId, setPlayerId] = useState('');
+    const [playerIndex, setPlayerIndex] = useState(0);
+    
+    const handlePlayerId = (id: string) => {
+        setPlayerId(id);
+    }
+
+    const handlePlayerIndex = (index: number) => {
+        setPlayerIndex(index);
+    }
 
     useEffect(() => {
         async function fetchGameKey() {
             try {
-                const key = await findOrCreateGame();
+                const key = await findOrCreateGame(handlePlayerId, handlePlayerIndex);
                 setGameKey(key as string);
             } catch (error) {
                 console.error("Error fetching game key:", error);
@@ -23,7 +33,8 @@ export default function LoadingBar() {
 
     useEffect(() => {
         if (gameKey) {
-            router.replace('/game?gameKey=' + gameKey);
+            router.replace(`/game?gameKey=${gameKey}&playerId=${playerId}&playerIndex=${playerIndex}`);
+
         }
     }, [gameKey]);
 

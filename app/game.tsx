@@ -2,7 +2,7 @@ import QCM from "@/components/QCM";
 import Timer from "@/components/Timer";
 import { getGameQuestions } from "@/utils/firebaseUtils/manageGame";
 import { useLocalSearchParams } from "expo-router";
-import { get, getDatabase, ref } from "firebase/database";
+import { child, get, getDatabase, ref, set } from "firebase/database";
 import { useEffect, useState } from "react";
 import { View,Text } from "react-native";
 import { SvgXml } from 'react-native-svg';
@@ -12,18 +12,29 @@ import Snackbar from 'react-native-snackbar';
 
 export default function Game() {
     const gameKey = useLocalSearchParams().gameKey as string;
+    //const playerId = useLocalSearchParams().playerId as string;
+    const playerIndex = useLocalSearchParams().playerIndex as string;
+
     const [questions, setQuestions] = useState([]);
     const [currentQuestion, setCurrentQuestion] = useState(0);
     const [timeLeft, setTimeLeft] = useState(0);
     const[elapsedTime, setElapsedTime] = useState(0);
     const[isFinished, setIsFinished] = useState(false);
     const [isWantAnswersFlag, setIsWantAnswersFlag] = useState('a');
-    //riguel wa9teh is want answers 
     const [answersMap, setAnswersMap] = useState(new Map<string, Map<string,boolean>>());
+    const [isWantSendAnswers, setIsWantSendAnswers] = useState(false);
+    const [isNextRender, setIsNextRender] = useState(false);
 
+
+    const gameRef = ref(getDatabase(), `games/${gameKey}`);
     const handleAnswers = (questionAnswers: Map<string, boolean>, currentQuestionIndex:number) => {
+        var ind = currentQuestionIndex;
+        if(!isFinished){
+            ind = currentQuestionIndex - 1;
+        }
+
         const newAnswersMap = new Map(answersMap);
-        newAnswersMap.set((currentQuestionIndex-1).toString(), questionAnswers); // -1 because the current question is already incremented
+        newAnswersMap.set((ind).toString(), questionAnswers); // -1 because the current question is already incremented
         setAnswersMap(newAnswersMap);
         console.log('currentQuestionIndex:', currentQuestionIndex);
         console.log('in handleAnswers:');
@@ -55,9 +66,49 @@ export default function Game() {
         if (isFinished){
             console.log('Game finished');
             setIsWantAnswersFlag(isWantAnswersFlag + ' ');
+            setIsWantSendAnswers(true);
         }
     }
     , [isFinished]);
+
+
+    useEffect(() => {
+        if (isWantSendAnswers) setIsNextRender(true);
+    }, [isWantSendAnswers]);
+
+    useEffect(() => {
+
+
+        const convertMapToObject = (map: Map<string, Map<string, boolean>>): { [key: string]: { [key: string]: boolean } } => {
+            const obj: { [key: string]: { [key: string]: boolean } } = {};
+            map.forEach((value, key) => {
+              obj[key] = Array.from(value.entries()).reduce<{ [key: string]: boolean }>((acc, [k, v]) => {
+                acc[k] = v;
+                return acc;
+              }, {});
+            });
+            return obj;
+          };
+        if (isNextRender) {
+            console.log('in next render');
+            console.log(answersMap);
+            const answersMapObj = convertMapToObject(answersMap);
+            try {
+                if (playerIndex === '1') {
+                    set(child(gameRef, `player1Answers`), answersMapObj);
+                }
+                else if (playerIndex === '2') {
+                    set(child(gameRef, `player2Answers`), answersMapObj);
+                }
+            }
+            catch (error) {
+                console.error(error);
+            }
+        }
+        
+    }, [isNextRender]);
+
+
 
     useEffect(() => {
         const interval = setInterval(() => {
@@ -119,6 +170,7 @@ export default function Game() {
                 }}
                 /> || <SvgXml xml={finish} width="20%" height="20%" className="mx-auto mb-10" onPress={
                     () => {
+                        setIsFinished(true); // just to test why n 3 doesnt get sent
                         Snackbar.show({
                             text: 'Wait till timer ends!',
                             duration: Snackbar.LENGTH_SHORT,

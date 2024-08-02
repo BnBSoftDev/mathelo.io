@@ -24,12 +24,12 @@ const QCM: React.FC<Props> = (
             newAnswersDict.set(index.toString(), false);
         });
         setAnswersDict(newAnswersDict);
+        
     }, [question]);
 
     useEffect(() => {
-        console.log('in QCM useEffect');
-        console.log('isWantAnswers:', isWantAnswersFlag);
         if (isWantAnswersFlag!='a') {
+            console.log('indice mn west luseeffect taalgame', questionIndex);
             handleAnswers(answersDict, questionIndex);
         }
     }, [isWantAnswersFlag]);

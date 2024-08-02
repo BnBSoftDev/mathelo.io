@@ -8,7 +8,10 @@ import { getQuests } from "./getQuests";
 
 
 //TODO(): kelmet lime bedelha b lim
-export async function findOrCreateGame() {
+export async function findOrCreateGame(
+    handlePlayerId: (id: string) => void,
+    handlePlayerIndex: (index: number) => void
+) {
     const playerId = await getOrCreateId();
 
     const app = initializeApp(firebaseConfig);
@@ -28,6 +31,13 @@ export async function findOrCreateGame() {
             const snapval = snapshot.val();
             if (snapval.ready) {
                 // Resolve the promise when the game is ready
+                handlePlayerId(playerId); // tjm t3aytelha lfou9 ama nkhalihom ba7tha baadhhom khir
+                if (snapval.player1 === playerId) {
+                    handlePlayerIndex(1);
+                } else if (snapval.player2 === playerId) {
+                    handlePlayerIndex(2);
+                }
+
                 resolve(gameKey);
             } else if (snapval.player2 === playerId) {
                 await initGame(snapval, gameRef_, usersRef, qcmRef);
