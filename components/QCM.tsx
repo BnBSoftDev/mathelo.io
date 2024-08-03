@@ -44,7 +44,7 @@ const QCM: React.FC<Props> = (
         <SvgUri
         width={'100%'}
         
-        uri={encodeURI(`http://latex.codecogs.com/svg.zebi?\\textbf{${question.enonce}}`)}
+        uri={`http://latex.codecogs.com/svg.zebi?\\textbf{${question.enonce}}`}
     />
 
 

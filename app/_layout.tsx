@@ -34,6 +34,10 @@ export default function RootLayout() {
         title: "Game",
         headerShown: false,
       }} />
+      <Stack.Screen name="results" options={{
+        title: "Results",
+        headerShown: false,
+      }} />
     </Stack>
   );
 }

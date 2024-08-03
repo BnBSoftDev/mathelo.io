@@ -40,7 +40,7 @@ export default function Option({ option, onCheckedChange }: OptionProps) {
             />
             <SvgUri className="w-full"
                 width={'80%'}
-                uri={encodeURI(`http://latex.codecogs.com/svg.zebi?\\textbf{${modifiedText}}`)}
+                uri={`http://latex.codecogs.com/svg.zebi?\\textbf{${modifiedText}}`}
             />
         </View>
     )

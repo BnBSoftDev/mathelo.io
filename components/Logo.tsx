@@ -8,10 +8,11 @@ export default function Logo() {
         alignItems:'center',
       }}
     >
-      <Image className="object-scale-down"
+      <Image 
         style={{
           width: 230,
           height: 40,
+          resizeMode: 'contain',
     
         
         }}

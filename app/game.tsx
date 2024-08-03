@@ -1,7 +1,7 @@
 import QCM from "@/components/QCM";
 import Timer from "@/components/Timer";
 import { getGameQuestions } from "@/utils/firebaseUtils/manageGame";
-import { useLocalSearchParams } from "expo-router";
+import { router, useLocalSearchParams } from "expo-router";
 import { child, get, getDatabase, ref, set } from "firebase/database";
 import { useEffect, useState } from "react";
 import { View,Text } from "react-native";
@@ -12,7 +12,7 @@ import Snackbar from 'react-native-snackbar';
 
 export default function Game() {
     const gameKey = useLocalSearchParams().gameKey as string;
-    //const playerId = useLocalSearchParams().playerId as string;
+    const playerId = useLocalSearchParams().playerId as string;
     const playerIndex = useLocalSearchParams().playerIndex as string;
 
     const [questions, setQuestions] = useState([]);
@@ -90,20 +90,22 @@ export default function Game() {
             return obj;
           };
         if (isNextRender) {
-            console.log('in next render');
-            console.log(answersMap);
+            // this is two renders after game end
+            // cuz when u update a state, its value gets updated in the next render
             const answersMapObj = convertMapToObject(answersMap);
             try {
                 if (playerIndex === '1') {
-                    set(child(gameRef, `player1Answers`), answersMapObj);
+                    set(child(gameRef, `answers/player1`), answersMapObj);
                 }
                 else if (playerIndex === '2') {
-                    set(child(gameRef, `player2Answers`), answersMapObj);
+                    set(child(gameRef, `answers/player2`), answersMapObj);
                 }
             }
             catch (error) {
                 console.error(error);
             }
+
+            router.replace(`/results?gameKey=${gameKey}&playerIndex=${playerIndex}&playerId=${playerId}`);
         }
         
     }, [isNextRender]);
