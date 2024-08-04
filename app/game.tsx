@@ -4,13 +4,20 @@ import { getGameQuestions } from "@/utils/firebaseUtils/manageGame";
 import { router, useLocalSearchParams } from "expo-router";
 import { child, get, getDatabase, ref, set } from "firebase/database";
 import { useEffect, useState } from "react";
-import { View,Text } from "react-native";
+import { View,Text,ScrollView,Image } from "react-native";
 import { SvgXml } from 'react-native-svg';
 import {arrow} from '../assets/images/arrow';
 import { finish } from "../assets/images/finish";
 import Snackbar from 'react-native-snackbar';
 
 export default function Game() {
+
+    const logo = {
+        uri: 'https://reactnative.dev/img/tiny_logo.png',
+        width: 64,
+        height: 64,
+      };
+
     const gameKey = useLocalSearchParams().gameKey as string;
     const playerId = useLocalSearchParams().playerId as string;
     const playerIndex = useLocalSearchParams().playerIndex as string;
@@ -128,11 +135,10 @@ export default function Game() {
 
     return (
       
-            <View style={
+            <ScrollView style={
             {
+                flex: 1,
                 padding: 20,
-                width: '100%',
-                height: '100%',
             }
         }>
 
@@ -164,13 +170,13 @@ export default function Game() {
             {
                 // Show the arrow only if there are more questions
                 currentQuestion < questions.length - 1 && 
-                <SvgXml xml={arrow} width="20%" height="20%" className="mx-auto mb-10"
+                <SvgXml xml={arrow} width="100" height="100" className="mx-auto mb-10"
                 onPress={() => {
                     setIsWantAnswersFlag(isWantAnswersFlag + ' ');
                     
                     setCurrentQuestion(currentQuestion + 1);
                 }}
-                /> || <SvgXml xml={finish} width="20%" height="20%" className="mx-auto mb-10" onPress={
+                /> || <SvgXml xml={finish} width="100" height="100" className="mx-auto mb-10" onPress={
                     () => {
                         setIsFinished(true); // just to test why n 3 doesnt get sent
                         Snackbar.show({
@@ -182,8 +188,8 @@ export default function Game() {
             }
                
             
-        </View>
-      
+        </ScrollView>
+        
         
         
     );

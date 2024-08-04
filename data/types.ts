@@ -1,9 +1,10 @@
 export interface Props {
-    gameId: string;
+    gameId?: string;
     question: QCMtype;
-    questionIndex: number;
-    isWantAnswersFlag: string;
-    handleAnswers: (questionAnswers: Map<string, boolean>, currentQuestionIndex: number) => void; 
+    questionIndex?: number;
+    isWantAnswersFlag?: string;
+    handleAnswers?: (questionAnswers: Map<string, boolean>, currentQuestionIndex: number) => void;
+    disabled? : boolean;
     }
     
     

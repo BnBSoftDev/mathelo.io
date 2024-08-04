@@ -8,9 +8,10 @@ import { useEffect, useState } from "react";
 interface OptionProps {
     option: Opt;
     onCheckedChange: (isChecked: boolean) => void;
+    isDisabled?: boolean;
 }
 
-export default function Option({ option, onCheckedChange }: OptionProps) {
+export default function Option({ option, onCheckedChange = () => {}, isDisabled = false }: OptionProps) {
     const [modifiedText, setModifiedText] = useState<string>('');
     const [isChecked, setIsChecked] = useState<boolean>(false);
 
@@ -31,6 +32,7 @@ export default function Option({ option, onCheckedChange }: OptionProps) {
                 isChecked={isChecked}
                 className="ml-2"
                 size={25}
+                disabled={isDisabled}
                 fillColor="#3D72D1"
                 iconStyle={{ borderColor: "#3D72D1" }}
                 onPress={(checked: boolean) => {

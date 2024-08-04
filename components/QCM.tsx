@@ -8,11 +8,11 @@ import { useEffect, useState } from 'react';
 
 
 const QCM: React.FC<Props> = (
-    {   gameId,
-        question,
-        questionIndex ,
-        isWantAnswersFlag,
-        handleAnswers,
+    {   question,
+        questionIndex = 0,
+        isWantAnswersFlag = 'a',
+        handleAnswers = () => {},
+        disabled = false
      }
 ) => {
     const modifiedEnonce = addNewLines(question.enonce, 40);
@@ -52,7 +52,7 @@ const QCM: React.FC<Props> = (
         <View className='py-5 w-full h-fit'>
                 {
                 question.options.map((option, index) => (
-                <Option key={index} option={option} onCheckedChange={
+                <Option isDisabled={disabled} key={index} option={option} onCheckedChange={
                     (isChecked: boolean) => {
                         const newAnswersDict = new Map(answersDict);
                         newAnswersDict.set(index.toString(), isChecked);
