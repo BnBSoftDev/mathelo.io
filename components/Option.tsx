@@ -9,11 +9,18 @@ interface OptionProps {
     option: Opt;
     onCheckedChange: (isChecked: boolean) => void;
     isDisabled?: boolean;
+    correctionMode?: boolean;
 }
 
-export default function Option({ option, onCheckedChange = () => {}, isDisabled = false }: OptionProps) {
+export default function Option({ option, onCheckedChange = () => {}, isDisabled = false,correctionMode = false }: OptionProps) {
     const [modifiedText, setModifiedText] = useState<string>('');
     const [isChecked, setIsChecked] = useState<boolean>(false);
+
+    useEffect(() => {
+        
+        console.log('isChecked',isChecked);
+    }
+    , []);
 
     useEffect(() => {
         setModifiedText(addNewLines(option.text, 40));
@@ -29,7 +36,7 @@ export default function Option({ option, onCheckedChange = () => {}, isDisabled 
             borderStyle: 'dashed',
         }}>
             <BouncyCheckBox
-                isChecked={isChecked}
+                isChecked={correctionMode ? option.correct : isChecked}
                 className="ml-2"
                 size={25}
                 disabled={isDisabled}
@@ -42,7 +49,7 @@ export default function Option({ option, onCheckedChange = () => {}, isDisabled 
             />
             <SvgUri className="w-full"
                 width={'80%'}
-                uri={`http://latex.codecogs.com/svg.zebi?\\textbf{${modifiedText}}`}
+                uri={`http://latex.codecogs.com/svg.zebi?\\textbf{${option.text}}`}
             />
         </View>
     )

@@ -1,5 +1,5 @@
 import { addNewLines } from '@/utils/modifyLatex';
-import { View } from 'react-native';
+import { View ,Text} from 'react-native';
 import { SvgUri } from 'react-native-svg';
 import Option from './Option';
 import { Props, QCMtype} from '@/data/types';
@@ -12,11 +12,17 @@ const QCM: React.FC<Props> = (
         questionIndex = 0,
         isWantAnswersFlag = 'a',
         handleAnswers = () => {},
-        disabled = false
+        disabled = false,
+        correctionMode = false,
      }
 ) => {
     const modifiedEnonce = addNewLines(question.enonce, 40);
     const [answersDict, setAnswersDict] = useState<Map<string, boolean>>(new Map());
+
+    useEffect(() => {
+        console.log('correctionMode', correctionMode);
+        
+    }, []);
 
     useEffect(() => {
         const newAnswersDict = new Map<string, boolean>();
@@ -35,12 +41,16 @@ const QCM: React.FC<Props> = (
     }, [isWantAnswersFlag]);
 
    return (
-    <View className='h-fit'  
+    <View className='h-fit py-5'  
     style={{
         width: '100%',
         alignItems: 'center',
        
     }}>
+        <Text className='text-xl my-5' style={{
+            fontFamily: 'Pix',
+            color: '#3D72D1',
+          }}> Problem Statement :</Text>
         <SvgUri
         width={'100%'}
         
@@ -52,7 +62,8 @@ const QCM: React.FC<Props> = (
         <View className='py-5 w-full h-fit'>
                 {
                 question.options.map((option, index) => (
-                <Option isDisabled={disabled} key={index} option={option} onCheckedChange={
+        
+                <Option isDisabled={disabled} key={index} correctionMode={correctionMode} option={option} onCheckedChange={
                     (isChecked: boolean) => {
                         const newAnswersDict = new Map(answersDict);
                         newAnswersDict.set(index.toString(), isChecked);

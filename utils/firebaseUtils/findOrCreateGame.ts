@@ -17,7 +17,7 @@ export async function findOrCreateGame(
     const app = initializeApp(firebaseConfig);
     const db = getDatabase(app);
     const gamesRef = ref(db, 'games/');
-    const qcmRef = ref(db, 'en/');
+    const qcmRef = ref(db, 'fr/');
     const usersRef = ref(db, 'users/');
     const snapshot = await get(gamesRef);
     const gameKey = await handle(snapshot, gamesRef, playerId);

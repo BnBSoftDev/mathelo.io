@@ -1,4 +1,5 @@
 export interface Props {
+    correctionMode?: boolean;
     gameId?: string;
     question: QCMtype;
     questionIndex?: number;

@@ -7,8 +7,9 @@ import { getWinner } from "@/utils/getWinner";
 import { getDatabase, ref, get } from "@firebase/database";
 import { useLocalSearchParams } from "expo-router";
 import { useEffect, useState } from "react";
-import { View, Text, ScrollView } from "react-native";
+import { View, Text, ScrollView, StyleSheet, SafeAreaView } from "react-native";
 import { SvgUri } from "react-native-svg";
+
 
 const tailwindCls = 'w-full h-fit flex-col items-center justify-center';
 
@@ -47,7 +48,8 @@ export default function Results() {
 
   return (
 
-    <ScrollView className='flex-1 p-10'>
+    <SafeAreaView style={styles.container}>
+      <ScrollView style={styles.scrollView}>
       {isLoading ? (
         <Text>Loading...</Text>
       ) : (
@@ -64,15 +66,21 @@ export default function Results() {
 
       <View className='flex-col items-center justify-center' key={index}>
          <QCM
+         correctionMode={true}
         key={index}
         question={question}
         isWantAnswersFlag='a'
         disabled={true}
           />
+          <Text className='text-xl my-5' style={{
+            fontFamily: 'Pix',
+            color: '#3D72D1',
+          }}>Explanation:</Text>
           <SvgUri className="w-full"
-                width={'80%'}
+                width={'100%'}
                 uri={`http://latex.codecogs.com/svg.zebi?\\textbf{${question['explanation']}}`}
           />
+          
       </View>
 
     ))}
@@ -80,5 +88,24 @@ export default function Results() {
 
       )}
     </ScrollView>
+    </SafeAreaView>
+
+    
   );
 }
+
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    paddingVertical: 20,
+    
+  },
+  scrollView: {
+    paddingHorizontal: 20,
+    
+  },
+  text: {
+    fontSize: 42,
+  },
+});
