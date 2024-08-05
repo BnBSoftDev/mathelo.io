@@ -1,12 +1,19 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {Text, View, TextInput} from 'react-native';
-import { updateUserName } from '@/utils/firebaseUtils/manageUser';
+import { getUserName, updateUserName } from '@/utils/firebaseUtils/manageUser';
+import { child, getDatabase,set, ref, get} from 'firebase/database';
 
 
 
 const UserName = () => {
   
-  const [text, onChangeText] = React.useState('RandomUserName');
+  const [text, setText] = React.useState('randomUserName');
+
+  useEffect(() => {
+      getUserName().then((username) => {
+      setText(username);
+    });
+  }, []);
 
   return (
     <View className='w-full px-14'>
@@ -19,13 +26,15 @@ const UserName = () => {
          
         }}
         autoCorrect={false}
-          onChangeText={onChangeText}
           value={text}
          className='text-lg -mb-5'
           placeholder="ex: AlgebraSlayer"
           onSubmitEditing={() => {
             updateUserName(text);
-          }}>
+            setText(text);
+          }}
+          onChangeText={(text) => setText(text)}
+          >
             
         </TextInput>
         <View className='w-64 h-px my-8 bg-gray-400 border-0'/>

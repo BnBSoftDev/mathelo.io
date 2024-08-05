@@ -1,5 +1,5 @@
 import { initializeApp } from "firebase/app";
-import { getDatabase, ref, set } from "firebase/database";
+import { getDatabase, ref, set,get } from "firebase/database";
 import { firebaseConfig } from "../../data/firebase/firebaseConfig";
 import { getOrCreateId } from "../manageId";
 
@@ -27,4 +27,14 @@ export const createUser = async (id:string) => {
 export const updateUserName = async (username:string) => {
     const id = await getOrCreateId();
     set(ref(db, 'users/' + id + '/username'), username);
+    console.log('username updated');
+}
+
+export const getUserName = async () => {
+    const id = await getOrCreateId();
+    const user = await get(ref(db, 'users/' + id + '/username'))
+    if (user.exists()) {
+        return user.val().toString();
+    }
+    return 'randomUserName';
 }
