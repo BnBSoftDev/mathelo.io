@@ -1,8 +1,11 @@
 import { useFonts } from "expo-font";
 import { SplashScreen, Stack } from "expo-router";
 import { useEffect } from "react";
+import { RootSiblingParent } from 'react-native-root-siblings';
+
 
 export default function RootLayout() {
+  
   const [loaded, error] = useFonts({
     'Pix': require('../assets/fonts/kongtext.ttf'),
   });
@@ -21,7 +24,10 @@ export default function RootLayout() {
   }
 
   return (
-    <Stack>
+
+    <RootSiblingParent>
+    
+      <Stack>
       <Stack.Screen name="index" options={{
         title: "Home",
         headerShown: false,
@@ -39,5 +45,8 @@ export default function RootLayout() {
         headerShown: false,
       }} />
     </Stack>
+    
+  </RootSiblingParent>
+    
   );
 }

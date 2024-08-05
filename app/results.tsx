@@ -3,6 +3,7 @@ import Draw from "@/components/resComps/draw";
 import Loss from "@/components/resComps/win";
 import Win from "@/components/resComps/win";
 import { getGameQuestions } from "@/utils/firebaseUtils/manageGame";
+import { getElo, updateElo } from "@/utils/firebaseUtils/manageUser";
 import { getWinner } from "@/utils/getWinner";
 import { getDatabase, ref, get } from "@firebase/database";
 import { useLocalSearchParams } from "expo-router";
@@ -18,7 +19,7 @@ export default function Results() {
   const playerId = useLocalSearchParams().playerId as string;
   const playerIndex = useLocalSearchParams().playerIndex as string;
   const [isLoading, setIsLoading] = useState(true);
-  const [winner, setWinner] = useState(0);
+  const [winner, setWinner] = useState(-1);
   const [questions, setQuestions] = useState([]);
 
   useEffect(() => {
@@ -33,6 +34,19 @@ export default function Results() {
       //add winner to game in firebase
     });
   }, []);
+
+
+  useEffect(() => {
+    if (winner !== -1) {
+      getElo().then((elo) => {
+        if (winner.toString() === playerIndex) {
+          updateElo(elo + 100);
+        } else if (winner.toString() !== '0') {
+          updateElo(elo - 90);
+        }
+      });
+  } }
+  , [winner]);
 
   useEffect(() => {
     const db = getDatabase();
@@ -98,11 +112,11 @@ export default function Results() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingVertical: 20,
+    paddingBottom: 5,
     
   },
   scrollView: {
-    paddingHorizontal: 20,
+    paddingHorizontal: 2,
     
   },
   text: {

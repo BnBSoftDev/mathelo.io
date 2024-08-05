@@ -8,7 +8,7 @@ import { View,Text,ScrollView,Image } from "react-native";
 import { SvgXml } from 'react-native-svg';
 import {arrow} from '../assets/images/arrow';
 import { finish } from "../assets/images/finish";
-import Snackbar from 'react-native-snackbar';
+import Toast from 'react-native-root-toast';
 
 export default function Game() {
 
@@ -178,11 +178,10 @@ export default function Game() {
                 }}
                 /> || <SvgXml xml={finish} width="100" height="100" className="mx-auto mb-10" onPress={
                     () => {
-                        setIsFinished(true); // just to test why n 3 doesnt get sent
-                        Snackbar.show({
-                            text: 'Wait till timer ends!',
-                            duration: Snackbar.LENGTH_SHORT,
-                        });
+                        //setIsFinished(true); // just to test why n 3 doesnt get sent
+                        Toast.show('Wait till game ends.', {
+                            duration: Toast.durations.LONG,
+                          });
                     }
                 }/>
             }

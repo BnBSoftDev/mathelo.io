@@ -32,11 +32,11 @@ export default function LoadingBar() {
 
 
     useEffect(() => {
-        if (gameKey) {
+        if (gameKey && playerId && playerIndex) {
             router.replace(`/game?gameKey=${gameKey}&playerId=${playerId}&playerIndex=${playerIndex}`);
 
         }
-    }, [gameKey]);
+    }, [gameKey,playerId,playerIndex]);
 
 
     return (
