@@ -21,6 +21,7 @@ export default function LoadingBar() {
         async function fetchGameKey() {
             try {
                 const key = await findOrCreateGame(handlePlayerId, handlePlayerIndex);
+                
                 setGameKey(key as string);
             } catch (error) {
                 console.error("Error fetching game key:", error);
