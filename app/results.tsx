@@ -92,7 +92,7 @@ export default function Results() {
           }}>Explanation:</Text>
           <SvgUri className="w-full"
                 width={'100%'}
-                uri={`http://latex.codecogs.com/svg.zebi?\\textbf{${question['explanation']}}`}
+                uri={`https://latex.codecogs.com/svg.zebi?\\textbf{${question['explanation']}}`}
           />
           
       </View>

@@ -49,7 +49,7 @@ export default function Option({ option, onCheckedChange = () => {}, isDisabled 
             />
             <SvgUri className="w-full"
                 width={'80%'}
-                uri={`http://latex.codecogs.com/svg.zebi?\\textbf{${option.text}}`}
+                uri={`https://latex.codecogs.com/svg.zebi?\\textbf{${option.text}}`}
             />
         </View>
     )

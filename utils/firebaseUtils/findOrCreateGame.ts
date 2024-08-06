@@ -53,6 +53,7 @@ export async function findOrCreateGame(
             console.log('doodle');
             const snapval = (await get(gameRef_)).val();
             if (!snapval.ready) {
+                snapval.status = 'full';
                 await initGame(snapval, gameRef_, usersRef, qcmRef);
                 resolve(gameKey);
             }

@@ -11,12 +11,7 @@ import { finish } from "../assets/images/finish";
 import Toast from 'react-native-root-toast';
 
 export default function Game() {
-
-    const logo = {
-        uri: 'https://reactnative.dev/img/tiny_logo.png',
-        width: 64,
-        height: 64,
-      };
+    
 
     const gameKey = useLocalSearchParams().gameKey as string;
     const playerId = useLocalSearchParams().playerId as string;

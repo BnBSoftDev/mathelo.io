@@ -21,7 +21,8 @@ export default function Home() {
       <Elo/>
       <PlayBtn/>
       <UserName/>
-      <LogOrSign/>
+      {//<LogOrSign/>
+      }
     </View>
   );
 }

@@ -1,10 +1,10 @@
 {
   "expo": {
     "name": "mathelo.io",
-    "slug": "mathelo.io",
+    "slug": "mathelo_io",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/icon.png",
+    "icon": "./assets/images/icon.png.png",
     "scheme": "myapp",
     "userInterfaceStyle": "automatic",
     "splash": {
@@ -16,8 +16,9 @@
       "supportsTablet": true
     },
     "android": {
+      "versionCode": 1,
       "adaptiveIcon": {
-        "foregroundImage": "./assets/images/adaptive-icon.png",
+        "foregroundImage": "./assets/images/icon-adaptive.png.png",
         "backgroundColor": "#ffffff"
       },
       "package": "com.khaled.mathelo.io"
@@ -33,6 +34,14 @@
     ],
     "experiments": {
       "typedRoutes": true
+    },
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "36d451ec-0143-4492-a97d-f7e9aa9ecdb6"
+      }
     }
   }
 }
