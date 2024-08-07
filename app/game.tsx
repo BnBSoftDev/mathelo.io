@@ -38,9 +38,7 @@ export default function Game() {
         const newAnswersMap = new Map(answersMap);
         newAnswersMap.set((ind).toString(), questionAnswers); // -1 because the current question is already incremented
         setAnswersMap(newAnswersMap);
-        console.log('currentQuestionIndex:', currentQuestionIndex);
-        console.log('in handleAnswers:');
-        console.log(newAnswersMap);
+    
     }
 
     useEffect(() => {
@@ -66,7 +64,6 @@ export default function Game() {
 
     useEffect(() => {
         if (isFinished){
-            console.log('Game finished');
             setIsWantAnswersFlag(isWantAnswersFlag + ' ');
             setIsWantSendAnswers(true);
         }
@@ -132,6 +129,7 @@ export default function Game() {
       
             <ScrollView style={
             {
+                backgroundColor: '#fff',
                 flex: 1,
                 padding: 20,
             }

@@ -5,6 +5,5 @@
     const starCountRef = child(ref(db), `games/${gameKey}`);
     onValue(starCountRef, (snapshot) => {
         const data = snapshot.val();
-        console.log(data);
     });
 }

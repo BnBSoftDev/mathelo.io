@@ -20,7 +20,6 @@ const QCM: React.FC<Props> = (
     const [answersDict, setAnswersDict] = useState<Map<string, boolean>>(new Map());
 
     useEffect(() => {
-        console.log('correctionMode', correctionMode);
         
     }, []);
 
@@ -35,7 +34,6 @@ const QCM: React.FC<Props> = (
 
     useEffect(() => {
         if (isWantAnswersFlag!='a') {
-            console.log('indice mn west luseeffect taalgame', questionIndex);
             handleAnswers(answersDict, questionIndex);
         }
     }, [isWantAnswersFlag]);
@@ -68,7 +66,6 @@ const QCM: React.FC<Props> = (
                         const newAnswersDict = new Map(answersDict);
                         newAnswersDict.set(index.toString(), isChecked);
                         setAnswersDict(newAnswersDict);
-                        console.log(newAnswersDict);
                     }
                 } />
                  ))  

@@ -27,7 +27,6 @@ export const createUser = async (id:string) => {
 export const updateUserName = async (username:string) => {
     const id = await getOrCreateId();
     set(ref(db, 'users/' + id + '/username'), username);
-    console.log('username updated');
 }
 
 export const getUserName = async () => {

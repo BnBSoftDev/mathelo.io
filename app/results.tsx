@@ -30,7 +30,6 @@ export default function Results() {
       const winner = getWinner(gameData.answers, gameData.questions);
       setIsLoading(false);
       setWinner(winner);
-      console.log('winner:', winner);
       //add winner to game in firebase
     });
   }, []);
@@ -113,6 +112,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingBottom: 5,
+    backgroundColor: '#fff',
     
   },
   scrollView: {

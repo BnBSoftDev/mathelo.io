@@ -47,18 +47,20 @@ export async function findOrCreateGame(
             reject(error);
         });
     });
-
+    const dbRef = ref(db);
+    const shouldUseBots = (await get(child(dbRef, 'shouldUseBots'))).val();
     const timeoutPromise = new Promise(async (resolve) => {
         setTimeout(async () => {
-            console.log('doodle');
             const snapval = (await get(gameRef_)).val();
-            if (!snapval.ready) {
+            if (!snapval.ready && shouldUseBots) {
                 snapval.status = 'full';
                 await initGame(snapval, gameRef_, usersRef, qcmRef);
                 resolve(gameKey);
             }
         }, 6000);
     });
+
+    
 
     return Promise.race([gamePromise, timeoutPromise]);
 }
@@ -97,7 +99,6 @@ async function initGame(gameData: any, gameRef_: DatabaseReference, usersRef: Da
         ]);
         quests = await getQuests(p1_elo, p2_elo, qcmRef);
     } else{
-        console.log('player 2 is null');
         p1_elo = await get(child(usersRef, player1)).then(snapshot => snapshot.val().elo);
         quests = await getQuests(p1_elo, p1_elo, qcmRef);
     }
