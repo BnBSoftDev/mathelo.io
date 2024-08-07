@@ -26,11 +26,13 @@ export const createUser = async (id:string) => {
 
 export const updateUserName = async (username:string) => {
     const id = await getOrCreateId();
-    set(ref(db, 'users/' + id + '/username'), username);
+    console.log('id', id);
+    await set(ref(db, 'users/' + id + '/username'), username);
 }
 
 export const getUserName = async () => {
     const id = await getOrCreateId();
+    console.log('id mel getusername', id);
     const user = await get(ref(db, 'users/' + id + '/username'))
     if (user.exists()) {
         return user.val().toString();

@@ -29,10 +29,16 @@ const UserName = () => {
           value={text}
          className='text-lg -mb-5'
           placeholder="ex: AlgebraSlayer"
-          onSubmitEditing={() => {
-            updateUserName(text);
+          onSubmitEditing={() => { 
             setText(text);
+            updateUserName(text)
           }}
+          onEndEditing={
+            () => {
+              setText(text);
+              updateUserName(text)
+            }
+          }
           onChangeText={(text) => setText(text)}
           >
             
