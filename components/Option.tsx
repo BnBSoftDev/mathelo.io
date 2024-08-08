@@ -16,12 +16,7 @@ export default function Option({ option, onCheckedChange = () => {}, isDisabled 
     const [modifiedText, setModifiedText] = useState<string>('');
     const [isChecked, setIsChecked] = useState<boolean>(false);
 
-    useEffect(() => {
-        
-        console.log('isChecked',isChecked);
-    }
-    , []);
-
+   
     useEffect(() => {
         setModifiedText(addNewLines(option.text, 40));
         setIsChecked(false); // Reset checkbox status when option changes

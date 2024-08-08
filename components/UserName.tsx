@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import {Text, View, TextInput} from 'react-native';
 import { getUserName, updateUserName } from '@/utils/firebaseUtils/manageUser';
-import { child, getDatabase,set, ref, get} from 'firebase/database';
 
 
 

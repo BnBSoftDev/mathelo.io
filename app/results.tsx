@@ -1,10 +1,11 @@
 import QCM from "@/components/QCM";
+import Scoreboard from "@/components/common/Scoreboard";
 import Draw from "@/components/resComps/draw";
-import Loss from "@/components/resComps/win";
+import Loss from "@/components/resComps/loss";
 import Win from "@/components/resComps/win";
 import { getGameQuestions } from "@/utils/firebaseUtils/manageGame";
 import { getElo, updateElo } from "@/utils/firebaseUtils/manageUser";
-import { getWinner } from "@/utils/getWinner";
+import { getScores } from "@/utils/getWinner";
 import { getDatabase, ref, get } from "@firebase/database";
 import { useLocalSearchParams } from "expo-router";
 import { useEffect, useState } from "react";
@@ -21,15 +22,24 @@ export default function Results() {
   const [isLoading, setIsLoading] = useState(true);
   const [winner, setWinner] = useState(-1);
   const [questions, setQuestions] = useState([]);
+  const [player1Score, setPlayer1Score] = useState(0);
+  const [player2Score, setPlayer2Score] = useState(0);
 
   useEffect(() => {
     const db = getDatabase();
     const gameRef = ref(db, `games/${gameKey}`);
     get(gameRef).then((snap) => {
       const gameData = snap.val();
-      const winner = getWinner(gameData.answers, gameData.questions);
+      const player1Elo = gameData.player1Elo;
+      const player2Elo = gameData.player2Elo;
+      const scores = getScores(player1Elo,player2Elo,gameData.answers, gameData.questions);
+      const _winner = scores.player1Score > scores.player2Score ? 1 : scores.player1Score < scores.player2Score ? 2 : 0;
+      console.log('winner:', _winner);
+      console.log('player index:', playerIndex);
+      setPlayer1Score(scores.player1Score);
+      setPlayer2Score(scores.player2Score);
       setIsLoading(false);
-      setWinner(winner);
+      setWinner(_winner);
       //add winner to game in firebase
     });
   }, []);
@@ -39,9 +49,9 @@ export default function Results() {
     if (winner !== -1) {
       getElo().then((elo) => {
         if (winner.toString() === playerIndex) {
-          updateElo(elo + 100);
+          updateElo(elo + 50);
         } else if (winner.toString() !== '0') {
-          updateElo(elo - 90);
+          updateElo(elo - 45);
         }
       });
   } }
@@ -67,7 +77,8 @@ export default function Results() {
         <Text>Loading...</Text>
       ) : (
         <>
-  {winner.toString() === playerIndex ? (
+        <Scoreboard player1score={player1Score} player2score={player2Score}/>
+  {winner.toString() === playerIndex.toString() ? (
     <Win cls={tailwindCls} />
   ) : winner.toString() === '0' ? (
     <Draw cls={tailwindCls} />

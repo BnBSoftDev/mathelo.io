@@ -89,13 +89,14 @@ async function initGame(gameData: any, gameRef_: DatabaseReference, usersRef: Da
     var p2_elo = 0;
 
     // if player two is null dont get its elo
-
+    console.log('init game is called')
     var quests = [];
 
     if(player2 != ""){
         [p1_elo, p2_elo] = await Promise.all([
             get(child(usersRef, player1)).then(snapshot => snapshot.val().elo),
             get(child(usersRef, player2)).then(snapshot => snapshot.val().elo),
+            
         ]);
         quests = await getQuests(p1_elo, p2_elo, qcmRef);
     } else{
@@ -110,5 +111,7 @@ async function initGame(gameData: any, gameRef_: DatabaseReference, usersRef: Da
     gameData.questions = quests;
     gameData.ready = true;
     gameData.startTime = Date.now();
+    gameData.player1Elo = p1_elo;
+    gameData.player2Elo = p2_elo;
     await set(gameRef_, gameData);
 }

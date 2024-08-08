@@ -14,7 +14,7 @@ const db = getDatabase(app);
 export const createUser = async (id:string) => {
     set(ref(db, 'users/' + id), {
         id: id,
-        elo: 1000,
+        elo: 550,
         games: 0,
         wins: 0,
         losses: 0,

@@ -9,6 +9,7 @@ import { SvgXml } from 'react-native-svg';
 import {arrow} from '../assets/images/arrow';
 import { finish } from "../assets/images/finish";
 import Toast from 'react-native-root-toast';
+import { convertMapToObject } from "@/utils/convertMapToObject";
 
 export default function Game() {
     
@@ -16,7 +17,6 @@ export default function Game() {
     const gameKey = useLocalSearchParams().gameKey as string;
     const playerId = useLocalSearchParams().playerId as string;
     const playerIndex = useLocalSearchParams().playerIndex as string;
-
     const [questions, setQuestions] = useState([]);
     const [currentQuestion, setCurrentQuestion] = useState(0);
     const [timeLeft, setTimeLeft] = useState(0);
@@ -76,18 +76,6 @@ export default function Game() {
     }, [isWantSendAnswers]);
 
     useEffect(() => {
-
-
-        const convertMapToObject = (map: Map<string, Map<string, boolean>>): { [key: string]: { [key: string]: boolean } } => {
-            const obj: { [key: string]: { [key: string]: boolean } } = {};
-            map.forEach((value, key) => {
-              obj[key] = Array.from(value.entries()).reduce<{ [key: string]: boolean }>((acc, [k, v]) => {
-                acc[k] = v;
-                return acc;
-              }, {});
-            });
-            return obj;
-          };
         if (isNextRender) {
             // this is two renders after game end
             // cuz when u update a state, its value gets updated in the next render
