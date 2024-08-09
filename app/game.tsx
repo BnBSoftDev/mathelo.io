@@ -102,8 +102,8 @@ export default function Game() {
     useEffect(() => {
         const interval = setInterval(() => {
             setElapsedTime(prevElapsedTime => prevElapsedTime + 1);
-            if (elapsedTime <= 300) {
-                setTimeLeft(300 - elapsedTime)
+            if (elapsedTime <= 60) {
+                setTimeLeft(60 - elapsedTime)
               }else{
                     setIsFinished(true);
               }
