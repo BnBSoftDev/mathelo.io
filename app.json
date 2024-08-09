@@ -2,7 +2,7 @@
   "expo": {
     "name": "mathelo.io",
     "slug": "mathelo_io",
-    "version": "1.0.1",
+    "version": "1.0.2",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png.png",
     "scheme": "myapp",
